@@ -10,3 +10,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+button {
+  display: inline-block;
+  background-color: #696969;
+  color: #FFF;
+  padding: 5px 10px;
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+:global(button.red) {
+  background-color: lightcoral !important;
+}
