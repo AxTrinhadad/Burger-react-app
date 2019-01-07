@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 
 import Burger from '../../components/Burger/Burger';
-import BuildControls from '../../components/Burger/BuildControls/BuildControls'
+import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+
+const INGREDIENT_PRICES = {
+    salad: 0.5,
+    cheese: 0.4,
+    meat: 1.3,
+    bacon: 0.7
+}
 
 class BurgerBuilder extends Component {
     // constructor(props) {
     //     super(props);
     //     this.state = {  };
     // }
+    
 
     state = {
         ingredients : {
@@ -15,7 +23,8 @@ class BurgerBuilder extends Component {
             bacon: 0,
             cheese: 0,
             meat: 0
-        }
+        },
+        totalPrice: 0
     }
 
     
@@ -29,24 +38,59 @@ addIngredientHandler = (type) => {
     };
 
     updatedIngredients[type] = updatedCount;
+    const priceAdd = INGREDIENT_PRICES[type];
+    const oldTotal = this.state.totalPrice;
 
-    console.log(updatedIngredients);
+    const newTotalPrice = oldTotal + priceAdd;
 
-    this.setState({ingredients: updatedIngredients});
+    this.setState({ingredients: updatedIngredients, totalPrice: newTotalPrice});
 
     
 }
 
 removeIngredientHandler = (type) => {
+    const oldCount = this.state.ingredients[type];
 
+    if (oldCount <= 0 ) {
+        return;
+    }
+    
+    console.log(type + ' removed!!!!');
+
+    const updatedCount = oldCount - 1;
+        
+
+    const updatedIngredients = {
+        ...this.state.ingredients
+    };
+
+    updatedIngredients[type] = updatedCount;
+    const priceReduce = INGREDIENT_PRICES[type];
+    const oldTotal = this.state.totalPrice;
+
+    const newTotalPrice = oldTotal - priceReduce;
+    
+    this.setState({ingredients: updatedIngredients, totalPrice: newTotalPrice});
 }
 
     render() {
+        const disabledInfo = {
+            ...this.state.ingredients
+        };
+
+        for (let key in disabledInfo) {
+            disabledInfo[key] = disabledInfo[key] <= 0;
+            console.log(disabledInfo);
+        }
+
         return (
             <>
-                <Burger ingredients={this.state.ingredients}/>
+                <Burger ingredients={this.state.ingredients}  totalPrice={this.state.totalPrice}  />
                 <div>Price</div>
-                <BuildControls addIng={this.addIngredientHandler} removeIng={this.removeIngredientHandler}  />
+                <BuildControls 
+                    addIng={this.addIngredientHandler} 
+                    removeIng={this.removeIngredientHandler} 
+                    disabled={disabledInfo}  />
             </>
         );
     }
