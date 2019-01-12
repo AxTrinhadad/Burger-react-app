@@ -1,0 +1,50 @@
+.Toolbar {
+    padding: 10px 20px;
+    background: lightblue;
+    color: darkblue;
+    position: fixed;
+    height: 75px;
+    width: 100%;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content:  space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 90;
+}
+
+.Toolbar .Menu {
+    color: darkblue;
+    text-decoration: none;
+    height: 100%;
+    padding: 16px 10px;
+    border-bottom: 4px solid transparent;
+    box-sizing: border-box;
+    display: block;
+
+    font-weight: 600;
+
+    width: 33%;
+}
+
+.Toolbar .Logo {
+    background: #363969;
+    border: 3px solid #181616;
+    padding: 5px 10px;
+    display: inline-block;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.Toolbar .Logo img {
+    max-height: 50px;
+}
+
+@media (max-width: 499px) {
+    .DesktopOnly {
+        display: none;
+    }
+}
